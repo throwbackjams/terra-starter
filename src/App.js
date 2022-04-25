@@ -1,5 +1,6 @@
 import './App.css';
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
+import Menu from './components/Menu';
 
 function App() {
   const { status, connect, disconnect, availableConnectTypes } = useWallet();
@@ -14,7 +15,7 @@ function App() {
             onClick={() => connect("EXTENSION")}
             className="cta-button connect-wallet-button"
           >
-            Connect Wallet
+            Connect Terra Wallet
           </button>
         </div>
       );
@@ -45,12 +46,19 @@ function App() {
 
       </header>
 
+      {status === WalletStatus.WALLET_NOT_CONNECTED && (
       <div>
         <img
           src="https://media.giphy.com/media/fr6EMszdu9vXxy9zkJ/giphy.gif"
           alt="Terra Gif"
         />
       </div>
+      )}
+      {status === WalletStatus.WALLET_CONNECTED && (
+        <div className='game-menu-container'>
+          <Menu />
+        </div>  
+      )}
       {renderConnectButton()}
     </main>
   );
